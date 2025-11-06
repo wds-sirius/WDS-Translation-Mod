@@ -7,11 +7,11 @@ frida/*
 # 
 apk/*
 !apk/.gitkeep
-# 
-apktool*
+#
+tools/*
+!tools/.gitkeep
 # 
 .memo*
 # 
-*.keystore
-# 
-res
+res/*
+!res/.gitkeep
