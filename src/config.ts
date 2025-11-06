@@ -4,13 +4,13 @@ import { isFileExists } from "./utils.js";
 
 interface IConfig {
     isEnableTranslation: boolean;
-    fontFile: string;
+    // fontFile: string;
     TranslationPath: string;
 }
 
 const DEFAULT_CONFIG = {
     isEnableTranslation: true,
-    fontFile: "HiraginoSansGB.ttf",
+    // fontFile: "HiraginoSansGB.ttf",
     TranslationPath: "https://raw.githubusercontent.com/DreamGallery/WDS-Translation-Csv/refs/heads/main/TranslationCsv/{EPID}.csv",
 }
 
