@@ -2,7 +2,7 @@
 
 # WDS-Translation-Mod
 
-使用frida實現對World Dai star**安卓版本遊戲**的翻譯功能。
+使用frida實現對World Dai Star**安卓版本遊戲**的翻譯功能。
 
 </div>
 
@@ -12,7 +12,7 @@
 
 ## 編譯方式
 
-依赖:
+所需依賴:
 ```
 Java
 Node
@@ -22,6 +22,7 @@ frida-gadget
 apktool
 ```
 
+執行
 ```shell
 # Install dependencies
 npm install
