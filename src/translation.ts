@@ -13,43 +13,57 @@ export let hasFontAsset : boolean = false;
 
 export async function init(){
     isEnableEpisodeTranslation = Config.currentConfig.isEnableEpisodeTranslation;
-
-    //not working too..
-    // Il2Cpp.perform(() => {
-    //     let fontPath = `${Il2Cpp.application.dataPath}/il2cpp/Moded/${Config.currentConfig.fontAssetName}`;
-    //     SysOpenFile2Byte(fontPath, (bytes : Il2Cpp.Array<UInt64>)=>{
-    //         let abfilebytes = bytes;
-    //         let ab = gameClass.AssetBundle.method<Il2Cpp.Object>("LoadFromMemory").invoke(abfilebytes);
-    //         if (ab.isNull()) {
-    //             console.error("[LoadFromMemory] font load failed.");
-    //             FontCache = null;
-    //         }
-    //         FontCache = ab.method<Il2Cpp.Object>("LoadAsset", 1).inflate(gameClass.TMP_FontAsset).invoke(Il2Cpp.string(`${Config.currentConfig.fontAssetName} SDF`));
-    //         console.log(FontCache);
-    //         ab.method("Unload", 1).invoke(false);
-    //     })
-    // })
 }
 
 // LoadFromFileAsync is not working...
-// export async function loadFont(fontPath : string){
-//     if(gameClass.SysFile.method<boolean>("Exists", 1).invoke(Il2Cpp.string(fontPath))){
-//         console.log('Font Asset Exist *')
-//         let ab_req = gameClass.AssetBundle.method<Il2Cpp.Object>("LoadFromFileAsync", 1).invoke(Il2Cpp.string(fontPath));
-//         while(!ab_req.method('get_isDone').invoke()){
-//             await new Promise(resolve => setTimeout(resolve, 100));
+export async function loadFont(fontPath : string){
+    // let fontPath = `${Il2Cpp.application.dataPath}/il2cpp/Moded/${Config.currentConfig.fontAssetName}`;
+    if(gameClass.SysFile.method<boolean>("Exists", 1).invoke(Il2Cpp.string(fontPath))){
+        console.log('Font Asset is Exist!!', fontPath)
+        let ab_req = gameClass.AssetBundle.method<Il2Cpp.Object>("LoadFromFileAsync", 1).invoke(Il2Cpp.string(fontPath));
+        let ab = null;
+        
+         if(ab_req.isNull()){
+            console.error("Failed to create AssetBundleRequest at path : ", fontPath)
+            ab_req = null
+        }
+
+        if(ab_req){
+            while(!ab_req.method('get_isDone').invoke()){
+                await new Promise(resolve => setTimeout(resolve, 100));
+                console.log('loading');
+            }
+            console.log('Done! ', ab_req.method('get_isDone').invoke())
+            ab = ab_req.method<Il2Cpp.Object>('get_assetBundle').invoke()
+        }
+
+        if (ab.isNull()){
+            console.error("Failed to load AssetBundle at path : ", fontPath)
+        }
+
+        // ...
+        console.log(ab)
+    }
+    else{
+        console.log("Can not find the File")
+    }
+}
+
+//not working too..
+// Il2Cpp.perform(() => {
+//     let fontPath = `${Il2Cpp.application.dataPath}/il2cpp/Moded/${Config.currentConfig.fontAssetName}`;
+//     SysOpenFile2Byte(fontPath, (bytes : Il2Cpp.Array<UInt64>)=>{
+//         let abfilebytes = bytes;
+//         let ab = gameClass.AssetBundle.method<Il2Cpp.Object>("LoadFromMemory").invoke(abfilebytes);
+//         if (ab.isNull()) {
+//             console.error("[LoadFromMemory] font load failed.");
+//             FontCache = null;
 //         }
-//         console.log('Done! ', ab_req.method('get_isDone').invoke())
-//         let ab = ab_req.method<Il2Cpp.Object>('get_assetBundle').invoke()
-//         if (ab.isNull()){
-//             console.error("Failed to load AssetBundle at path : ", fontPath)
-//         }
-    
-//     }
-//     else{
-//         console.log("Can not find the File")
-//     }
-// }
+//         FontCache = ab.method<Il2Cpp.Object>("LoadAsset", 1).inflate(gameClass.TMP_FontAsset).invoke(Il2Cpp.string(`${Config.currentConfig.fontAssetName} SDF`));
+//         console.log(FontCache);
+//         ab.method("Unload", 1).invoke(false);
+//     })
+// })
 
 export function replaceFont(Tmp_Text: Il2Cpp.Object) {
     Il2Cpp.perform(()=>{

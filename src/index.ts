@@ -7,7 +7,6 @@ Il2Cpp.perform(() => {
     console.log(Il2Cpp.unityVersion); //2022.3.62f2
 })
 
-
 async function main(){
     await Config.init();
     await Translation.init();

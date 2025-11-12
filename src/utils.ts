@@ -10,7 +10,7 @@ export function isFileExists(path : string) {
     }
 }
 
-export function SysOpenFile2Byte(path : string, callback : (bytes : any) => void) {
+export function SysOpenFile2Byte(path : string, callback : (bytes : Il2Cpp.Array<UInt64>) => void) {
     Il2Cpp.perform(() => {
         if(gameClass.SysFile.method<boolean>("Exists", 1).invoke(Il2Cpp.string(path))){
             console.log('Font Asset Exist')

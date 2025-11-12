@@ -2,40 +2,48 @@ import "frida-il2cpp-bridge";
 import * as gameClass from './game.js';
 import * as Translation from './translation.js';
 
-Il2Cpp.perform(()=>{
-    const tran : Il2Cpp.Class = gameClass.Sirius.class("Sirius.TransitionFades.AdventureTransitionFade");
+// Il2Cpp.perform(()=>{
+//     const tran : Il2Cpp.Class = gameClass.Sirius.class("Sirius.TransitionFades.AdventureTransitionFade");
     
-    tran.method<void>('Awake').implementation = function(){
-        console.log('AdventureTransitionFade Awake hooked');
-        this.method('Awake').invoke();
-        // create new Text object
+//     tran.method<void>('Awake').implementation = function(){
+//         console.log('AdventureTransitionFade Awake hooked');
+//         this.method('Awake').invoke();
+//         // create new Text object
         
-    }
+//     }
     
-    // tran.method('SetMainStoryTitle', 3).implementation = function(chapterText : Il2Cpp.String, episodeText : Il2Cpp.String, titleText : Il2Cpp.String){
-    //     return this.method('SetMainStoryTitle').invoke(
-    //         chapterText,
-    //         episodeText,
-    //         titleText
-    //     );
-    // }
+//     // tran.method('SetMainStoryTitle', 3).implementation = function(chapterText : Il2Cpp.String, episodeText : Il2Cpp.String, titleText : Il2Cpp.String){
+//     //     return this.method('SetMainStoryTitle').invoke(
+//     //         chapterText,
+//     //         episodeText,
+//     //         titleText
+//     //     );
+//     // }
     
-    // tran.method('SetEventStoryTitle', 3).implementation = function(eventNameText : Il2Cpp.String, episodeText : Il2Cpp.String, titleText : Il2Cpp.String){
-    //     return this.method('SetEventStoryTitle').invoke(
-    //         eventNameText,
-    //         episodeText,
-    //         titleText
-    //     );
-    // }
+//     // tran.method('SetEventStoryTitle', 3).implementation = function(eventNameText : Il2Cpp.String, episodeText : Il2Cpp.String, titleText : Il2Cpp.String){
+//     //     return this.method('SetEventStoryTitle').invoke(
+//     //         eventNameText,
+//     //         episodeText,
+//     //         titleText
+//     //     );
+//     // }
     
-    // tran.method('SetSideStoryTitle', 2).implementation = function(partText : Il2Cpp.String, titleText : Il2Cpp.String){
-    //     return this.method('SetSideStoryTitle').invoke(
-    //         partText,
-    //         titleText
-    //     );
-    // }
+//     // tran.method('SetSideStoryTitle', 2).implementation = function(partText : Il2Cpp.String, titleText : Il2Cpp.String){
+//     //     return this.method('SetSideStoryTitle').invoke(
+//     //         partText,
+//     //         titleText
+//     //     );
+//     // }
 
-});
+// });
+
+// Il2Cpp.perform(() => {
+//     let titleTransitionFade : Il2Cpp.Class = gameClass.Sirius.class('Sirius.TransitionFades.TitleTransitionFade')
+//     titleTransitionFade.method('Sirius.TransitionFades.ITransitionFade.FadeOutAsync', 1).implementation = function(cancellationToken){
+//         Translation.loadFont();
+//         this.method('Sirius.TransitionFades.ITransitionFade.FadeOutAsync').invoke(cancellationToken);
+//     }
+// })
 
 Il2Cpp.perform(() => {
     const storyPreprocess : Il2Cpp.Class = gameClass.Sirius.class("Sirius.StoryPreprocess.EpisodeDetailApiRepository");
@@ -89,10 +97,10 @@ Il2Cpp.perform(() => {
 Il2Cpp.perform(() => {
     const historyDialogBody : Il2Cpp.Class = gameClass.Sirius.class("Sirius.Adventure.AdventureHistoryDialogBody");
     historyDialogBody.method('OnCellViewInstantiated', 2).implementation = function(scroller : Il2Cpp.Object, cellView : Il2Cpp.Object){
-        if(Translation.isEnableEpisodeTranslation && Translation.hasEpsiodeTranslation){
-            let phrase = cellView.field<Il2Cpp.Object>('_phrase').value;
-            Translation.replaceFont(phrase)
-        }
+        // if(Translation.isEnableEpisodeTranslation && Translation.hasEpsiodeTranslation){
+        //     let phrase = cellView.field<Il2Cpp.Object>('_phrase').value;
+        //     Translation.replaceFont(phrase)
+        // }
         this.method('OnCellViewInstantiated').invoke(
             scroller,
             cellView
@@ -104,13 +112,13 @@ Il2Cpp.perform(() => {
     const presenter = gameClass.Sirius.class('Sirius.Adventure.AdventurePresenter');
     presenter.method('.ctor').implementation = function(backgroundChanger, adventureMainView, adventureModel, cameraController, uiView : Il2Cpp.Object, effectView, movieView, fadeView, characterCardView, soundVolumeConfig, voicePlayer, timeAdjuster, backKeyHandler, resolutionHelper, fpsChanger){
         console.log('presenter .ctor Hooked')
-        if(Translation.isEnableEpisodeTranslation && Translation.hasEpsiodeTranslation){
-            let textpanel = uiView.field<Il2Cpp.Object>('_adventureTextPanel').value;
-            let phrase = textpanel.field<Il2Cpp.Object>('_phrase').value;
-            Translation.replaceFont(phrase)
-            let speakerName = textpanel.field<Il2Cpp.Object>('_speakerName').value;
-            Translation.replaceFont(speakerName)
-        }
+        // if(Translation.isEnableEpisodeTranslation && Translation.hasEpsiodeTranslation){
+        //     let textpanel = uiView.field<Il2Cpp.Object>('_adventureTextPanel').value;
+        //     let phrase = textpanel.field<Il2Cpp.Object>('_phrase').value;
+        //     Translation.replaceFont(phrase)
+        //     let speakerName = textpanel.field<Il2Cpp.Object>('_speakerName').value;
+        //     Translation.replaceFont(speakerName)
+        // }
         this.method('.ctor').invoke(backgroundChanger, adventureMainView, adventureModel, cameraController, uiView, effectView, movieView, fadeView, characterCardView, soundVolumeConfig, voicePlayer, timeAdjuster, backKeyHandler, resolutionHelper, fpsChanger);
     }
 });

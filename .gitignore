@@ -5,8 +5,7 @@ dist/*
 frida/*
 !frida/libgadget.config.so
 # 
-apk/*
-!apk/.gitkeep
+apk
 #
 tools/*
 !tools/.gitkeep
