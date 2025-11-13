@@ -4,7 +4,7 @@
 
 [中文](README.md) | English
 
-Implement translation functionality for the World Dai Star **Android version** using Frida.
+Implement translation functionality for the game `World Dai Star` **Android version** using Frida.
 
 </div>
 
